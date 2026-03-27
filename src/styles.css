@@ -1,0 +1,272 @@
+/* bibguard desktop — clean academic tool aesthetic */
+
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1a202c;
+  --text-muted: #718096;
+  --ok: #38a169;
+  --ok-bg: #f0fff4;
+  --warn: #d69e2e;
+  --warn-bg: #fffff0;
+  --fail: #e53e3e;
+  --fail-bg: #fff5f5;
+  --primary: #3182ce;
+  --primary-hover: #2b6cb0;
+  --radius: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header */
+#header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+#header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Drop zone */
+#drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 48px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+#drop-zone:hover, #drop-zone.dragover {
+  border-color: var(--primary);
+  background: #ebf8ff;
+}
+.drop-icon { font-size: 40px; margin-bottom: 8px; }
+.drop-text { font-size: 16px; color: var(--text); }
+.drop-hint { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+#file-input {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+}
+
+/* File bar */
+#file-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+#file-name { font-weight: 600; }
+#file-entries { color: var(--text-muted); font-size: 14px; flex: 1; }
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-secondary:hover { background: #f7fafc; }
+
+/* Progress */
+#progress-section { margin-bottom: 16px; }
+.progress-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width 0.15s ease;
+}
+.progress-text {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* Summary cards */
+#summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.summary-card {
+  text-align: center;
+  padding: 16px 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.summary-card .count { display: block; font-size: 28px; font-weight: 700; }
+.summary-card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
+.summary-card.ok .count { color: var(--ok); }
+.summary-card.warn .count { color: var(--warn); }
+.summary-card.fail .count { color: var(--fail); }
+.summary-card.time .count { color: var(--primary); font-size: 22px; }
+
+/* Results toolbar */
+.results-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.filter-group { display: flex; gap: 4px; }
+.filter {
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.filter.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Results table */
+#results-table { display: flex; flex-direction: column; gap: 4px; }
+
+.result-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+  font-size: 14px;
+}
+.result-row:hover { box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.result-row .status-badge {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.result-row .entry-info {
+  overflow: hidden;
+}
+.result-row .entry-key {
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.result-row .entry-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.result-row .sources {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.badge-ok { background: var(--ok-bg); color: var(--ok); }
+.badge-warn { background: var(--warn-bg); color: var(--warn); }
+.badge-fail { background: var(--fail-bg); color: var(--fail); }
+
+/* Modal */
+#modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+}
+#modal {
+  background: var(--surface);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-header h3 { font-size: 16px; }
+#modal-close {
+  background: none; border: none; font-size: 24px;
+  cursor: pointer; color: var(--text-muted); line-height: 1;
+}
+#modal-body { padding: 16px 20px; }
+
+.check-row {
+  display: grid;
+  grid-template-columns: 80px 60px 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.check-row:last-child { border-bottom: none; }
+.check-field { font-weight: 600; }
+.check-status { font-weight: 600; }
+.check-status.OK { color: var(--ok); }
+.check-status.WARN { color: var(--warn); }
+.check-status.FAIL { color: var(--fail); }
+
+.hidden { display: none !important; }

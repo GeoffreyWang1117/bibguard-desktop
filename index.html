@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bibguard — Citation Verifier</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Header -->
+      <header id="header">
+        <h1>bibguard</h1>
+        <span class="subtitle">Detect hallucinated citations</span>
+      </header>
+
+      <!-- Drop zone -->
+      <div id="drop-zone">
+        <div class="drop-content">
+          <div class="drop-icon">📄</div>
+          <p class="drop-text">Drop a <strong>.bib</strong> file here</p>
+          <p class="drop-hint">or click to browse</p>
+        </div>
+        <input type="file" id="file-input" accept=".bib" />
+      </div>
+
+      <!-- File info + controls -->
+      <div id="file-bar" class="hidden">
+        <span id="file-name"></span>
+        <span id="file-entries"></span>
+        <button id="btn-verify" class="btn-primary">Verify</button>
+        <button id="btn-clear" class="btn-secondary">Clear</button>
+      </div>
+
+      <!-- Progress -->
+      <div id="progress-section" class="hidden">
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <div id="progress-text" class="progress-text">0 / 0</div>
+      </div>
+
+      <!-- Summary -->
+      <div id="summary" class="hidden">
+        <div class="summary-card ok"><span id="count-ok" class="count">0</span><span class="label">OK</span></div>
+        <div class="summary-card warn"><span id="count-warn" class="count">0</span><span class="label">WARN</span></div>
+        <div class="summary-card fail"><span id="count-fail" class="count">0</span><span class="label">FAIL</span></div>
+        <div class="summary-card time"><span id="count-time" class="count">0s</span><span class="label">Time</span></div>
+      </div>
+
+      <!-- Results table -->
+      <div id="results-section" class="hidden">
+        <div class="results-toolbar">
+          <div class="filter-group">
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="FAIL">Fail</button>
+            <button class="filter" data-filter="WARN">Warn</button>
+            <button class="filter" data-filter="OK">OK</button>
+          </div>
+          <button id="btn-export" class="btn-secondary">Export Report</button>
+        </div>
+        <div id="results-table"></div>
+      </div>
+
+      <!-- Entry detail modal -->
+      <div id="modal-overlay" class="hidden">
+        <div id="modal">
+          <div class="modal-header">
+            <h3 id="modal-title">Entry Detail</h3>
+            <button id="modal-close">&times;</button>
+          </div>
+          <div id="modal-body"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

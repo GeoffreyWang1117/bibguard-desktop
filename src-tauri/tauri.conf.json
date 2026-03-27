@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "bibguard",
+  "version": "0.1.0",
+  "identifier": "com.geoffreywang.bibguard",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "bibguard — Citation Verifier",
+        "width": 960,
+        "height": 720,
+        "minWidth": 640,
+        "minHeight": 480
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' https://export.arxiv.org https://api.crossref.org https://dblp.org https://api.semanticscholar.org https://api.openalex.org; style-src 'self' 'unsafe-inline'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Education",
+    "shortDescription": "Detect hallucinated citations in academic papers",
+    "longDescription": "bibguard verifies every reference in your .bib file against five scholarly databases (arXiv, Crossref, DBLP, Semantic Scholar, OpenAlex). Catches phantom DOIs, fabricated arXiv IDs, author mismatches, and AI-hallucinated citations."
+  }
+}
